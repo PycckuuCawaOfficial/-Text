@@ -1,0 +1,76 @@
+(function (Scratch) {
+  'use strict';
+
+  class ScratchFontsText {
+    getInfo() {
+      return {
+        id: 'scratchFontsFinal',
+        name: 'Цветной Текст',
+        color1: '#4C97FF',
+        blocks: [
+          {
+            opcode: 'applyText',
+            blockType: Scratch.BlockType.COMMAND,
+            text: 'печать [TEXT] шрифт [FONT] цвет [COLOR] размер [SIZE]',
+            arguments: {
+              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'Привет!' },
+              FONT: { type: Scratch.ArgumentType.STRING, menu: 'fonts', defaultValue: 'Donegal One' },
+              COLOR: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff4c4c' },
+              SIZE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 40 }
+            }
+          }
+        ],
+        menus: {
+          fonts: {
+            acceptReporters: true,
+            items: [
+              'Donegal One', 
+              'Gloria Hallelujah', 
+              'Mystery Quest', 
+              'Marker Felt',
+              'Scratch',
+              'Pixel',
+              'Arial', 
+              'Verdana', 
+              'Impact', 
+              'Courier New', 
+              'Georgia',
+              'Comic Sans MS'
+            ]
+          }
+        }
+      };
+    }
+
+    applyText(args, util) {
+      const text = String(args.TEXT);
+      const size = Number(args.SIZE) || 40;
+      const font = args.FONT;
+      
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      ctx.font = `${size}px "${font}", sans-serif`;
+      
+      const metrics = ctx.measureText(text);
+      const width = Math.ceil(metrics.width) || 1;
+      const height = Math.ceil(size * 1.5);
+      
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.font = `${size}px "${font}", sans-serif`;
+      ctx.fillStyle = args.COLOR;
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, 0, canvas.height / 2);
+
+      const renderer = util.runtime.renderer;
+      if (renderer) {
+        const skinId = renderer.createBitmapSkin(canvas, 1);
+        renderer.updateDrawableProperties(util.target.drawableID, { skinId });
+      }
+    }
+  }
+
+  Scratch.extensions.register(new ScratchFontsText());
+})(Scratch);
