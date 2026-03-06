@@ -5,15 +5,15 @@
     getInfo() {
       return {
         id: 'scratchFontsFinal',
-        name: 'Цветной Текст',
+        name: 'РўРµРєСЃС‚',
         color1: '#4C97FF',
         blocks: [
           {
             opcode: 'applyText',
             blockType: Scratch.BlockType.COMMAND,
-            text: 'печать [TEXT] шрифт [FONT] цвет [COLOR] размер [SIZE]',
+            text: 'РўРµРєСЃС‚ [TEXT] С€СЂРёС„С‚ [FONT] С†РІРµС‚ [COLOR] СЂР°Р·РјРµСЂ С‚РµРєСЃС‚Р° [SIZE]',
             arguments: {
-              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'Привет!' },
+              TEXT: { type: Scratch.ArgumentType.STRING, defaultValue: 'РїСЂРёРІРµС‚!' },
               FONT: { type: Scratch.ArgumentType.STRING, menu: 'fonts', defaultValue: 'Donegal One' },
               COLOR: { type: Scratch.ArgumentType.COLOR, defaultValue: '#ff4c4c' },
               SIZE: { type: Scratch.ArgumentType.NUMBER, defaultValue: 40 }
